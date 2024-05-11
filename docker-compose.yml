@@ -1,0 +1,25 @@
+services:
+
+  front:
+    build: ./front
+    image: altenshopbackproductsfront
+    networks:
+      - spring
+    ports:
+      - "4200:4200"
+      - "49153:49153"
+    expose:
+      - "4200"
+      - "49153"
+
+  back:
+    build: ./back
+    image: altenshopbackproductsback
+    networks:
+      - spring
+    ports:
+      - "8080:8080"
+    expose:
+      - "8080"
+networks:
+  spring:

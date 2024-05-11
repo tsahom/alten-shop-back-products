@@ -1,0 +1,160 @@
+{
+	"info": {
+		"_postman_id": "da0ea735-1020-4f6a-bb04-1a4205b0f537",
+		"name": "alten",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "10862525"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/products",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/products",
+				"description": "\nThis endpoint retrieves a list of products from the server. The request should be formatted as an HTTP GET request to localhost:8080/products. The response will be in JSON format and will include an array of product objects, each containing the following properties: id, code, name, description, price, quantity, inventoryStatus, category, image, and rating.\n\n### Tests\n- Ensure that the response status is 200.\n- Confirm that the response content type is application/json.\n"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/products/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/products/1",
+				"description": "\nThis API endpoint makes an HTTP GET request to localhost:8080/products/1 to retrieve the details of a specific product. The response is in JSON format and includes the product's ID, code, name, description, price, quantity, inventory status, category, image, and rating.\n"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/products",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":1,\r\n    \"code\":123,\r\n    \"name\":\"name1\",\r\n    \"description\":\"description1\",\r\n    \"price\":1,\r\n    \"quantité\":1,\r\n    \"inventoryStatus\":\"free\",\r\n    \"category\":\"item\",\r\n    \"image\":\"path_to_image\",\r\n    \"rating\":10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/products",
+				"description": "\n    \n## POST /products\n\nThis endpoint is used to create a new product.\n\n### Request Body\n- **id** (number) - The unique identifier for the product.\n- **code** (number) - The product code.\n- **name** (string) - The name of the product.\n- **description** (string) - The description of the product.\n- **price** (number) - The price of the product.\n- **quantité** (number) - The quantity of the product.\n- **inventoryStatus** (string) - The status of the product in the inventory.\n- **category** (string) - The category of the product.\n- **image** (string) - The image URL of the product.\n- **rating** (number) - The rating of the product.\n\n### Response (200 - OK)\n```json\n{\n    \"id\": 0,\n    \"code\": \"\",\n    \"name\": \"\",\n    \"description\": \"\",\n    \"price\": 0,\n    \"quantity\": 0,\n    \"inventoryStatus\": \"\",\n    \"category\": \"\",\n    \"image\": \"\",\n    \"rating\": 0\n}\n```\n\n#### Response JSON Schema\n```json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"id\": { \"type\": \"number\" },\n        \"code\": { \"type\": \"string\" },\n        \"name\": { \"type\": \"string\" },\n        \"description\": { \"type\": \"string\" },\n        \"price\": { \"type\": \"number\" },\n        \"quantity\": { \"type\": \"number\" },\n        \"inventoryStatus\": { \"type\": \"string\" },\n        \"category\": { \"type\": \"string\" },\n        \"image\": { \"type\": \"string\" },\n        \"rating\": { \"type\": \"number\" }\n    }\n}\n"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/products/{id}",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is within the acceptable range\", function () {",
+							"  pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response does not contain any content\", function () {",
+							"    pm.expect(pm.response.text()).to.be.empty;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Absence of the deleted product ID in the response body\", function () {",
+							"    const deletedProductId = 1;",
+							"    const responseData = pm.response.text();",
+							"    ",
+							"    pm.expect(responseData).to.not.include(`<id>${deletedProductId}</id>`);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/products/1",
+				"description": "The API endpoint sends an HTTP DELETE request to localhost:8080/products/1 to delete a specific product.\n\n### Response\n\nThe response returns a status code of 200 and the content type is \"text/xml\". Since the response data is \"null\", it cannot be documented as a JSON schema."
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/products/{id}",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"  pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response schema matches the expected schema for product update\", function () {",
+							"    pm.expect(pm.response.text()).to.include('id');",
+							"    pm.expect(pm.response.text()).to.include('name');",
+							"    pm.expect(pm.response.text()).to.include('price');",
+							"    pm.expect(pm.response.text()).to.include('category');",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id\": 2.0,\r\n        \"code\": \"nvklal433\",\r\n        \"name\": \"Black Watch2\",\r\n        \"description\": \"Product Description\",\r\n        \"price\": 72.0,\r\n        \"quantity\": 61.0,\r\n        \"inventoryStatus\": \"INSTOCK\",\r\n        \"category\": \"Accessories\",\r\n        \"image\": \"black-watch.jpg\",\r\n        \"rating\": 4\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/products/2",
+				"description": "### Update Product Details\n\nThis endpoint allows updating the details of a specific product.\n\n#### Request\n\n- Method: PATCH\n- URL: `localhost:8080/products/{id}`\n    \n\n##### Request Body\n\n- Type: Raw (application/json)\n    - `id` (number): The unique identifier of the product.\n    - `code` (string): The product code.\n    - `name` (string): The name of the product.\n    - `description` (string): The description of the product.\n    - `price` (number): The price of the product.\n    - `quantity` (number): The available quantity of the product.\n    - `inventoryStatus` (string): The status of the product in inventory.\n    - `category` (string): The category of the product.\n    - `image` (string): The URL of the product image.\n    - `rating` (number): The rating of the product.\n\n#### Response\n\n- Status: 200\n- Content-Type: application/json\n    \n\n##### Response Body (JSON Schema)\n\n``` json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"id\": { \"type\": \"number\" },\n        \"code\": { \"type\": \"string\" },\n        \"name\": { \"type\": \"string\" },\n        \"description\": { \"type\": \"string\" },\n        \"price\": { \"type\": \"number\" },\n        \"quantity\": { \"type\": \"number\" },\n        \"inventoryStatus\": { \"type\": \"string\" },\n        \"category\": { \"type\": \"string\" },\n        \"image\": { \"type\": \"string\" },\n        \"rating\": { \"type\": \"number\" }\n    }\n}\n\n ```"
+			},
+			"response": []
+		}
+	]
+}
